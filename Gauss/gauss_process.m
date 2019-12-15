@@ -4,7 +4,6 @@ function [mu_f, std_f] = gauss_process(data_mat, beta, kernel_hyper_param)
     
     X = data_mat(:, 1);
     Y = data_mat(:, 2);
-    
     N = size(X, 1);
     %% Initial set of hyperparameters for our kernel
 %     kernel_hyper_param = [1, 1, 1, 1]; 
@@ -12,7 +11,7 @@ function [mu_f, std_f] = gauss_process(data_mat, beta, kernel_hyper_param)
     %% Computing the covariance C_N for training
     C_N = gauss_covariance(X, N, beta, delta, kernel_hyper_param);
     
-    %% Generate new points X and compute mean snd std of f
+    %% Generate new points X and compute mean and std of f
     x_new = linspace(-60, 60);
     [mu_f, std_f] = new_mean_cov(x_new, X, Y, beta, kernel_hyper_param, C_N);
     
@@ -49,7 +48,6 @@ function [mu_f, std_f] = gauss_process(data_mat, beta, kernel_hyper_param)
         % Need a stepsize sequence alpha
         step = alpha(:, k).*obj_grad;
         kernel_hyper_param = kernel_hyper_param + step';
-        
         % Recompute covariance for training and objective
         C_N = gauss_covariance(X, N, beta, delta, kernel_hyper_param);
         objective = [objective, log_likelihood(C_N, Y, N)];

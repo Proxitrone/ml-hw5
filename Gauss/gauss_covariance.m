@@ -1,6 +1,6 @@
 function [C_N] = gauss_covariance(X, N, beta, delta, hyper)
-%GAUSS_COVARIANCE Summary of this function goes here
-%   Detailed explanation goes here
+%GAUSS_COVARIANCE Compute the covariance matrix of our training data
+%   Use quadratic kernel
     C_N = zeros(N);
     for n=1:N
         for m=1:N
